@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bira.App.Providers.Application\Bira.App.Providers.Application.csproj" />
+    <ProjectReference Include="..\Bira.App.Providers.Domain\Bira.App.Providers.Domain.csproj" />
+    <ProjectReference Include="..\Bira.App.Providers.Infra\Bira.App.Providers.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
