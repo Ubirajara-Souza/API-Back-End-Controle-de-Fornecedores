@@ -10,7 +10,10 @@ namespace Bira.App.Providers.Application.AutoMapper
         {
             CreateMap<Provider, ProviderDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
-            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<ProductDto, Product>();
+
+            CreateMap<Product, ProductDto>()
+                .ForMember(dest => dest.NameProvider, opt => opt.MapFrom(src => src.Provider.Name));
         }
     }
 }

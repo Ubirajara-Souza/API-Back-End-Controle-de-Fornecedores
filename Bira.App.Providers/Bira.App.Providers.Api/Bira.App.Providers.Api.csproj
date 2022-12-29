@@ -18,14 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\V2\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Bira.App.Providers.Application\Bira.App.Providers.Application.csproj" />
     <ProjectReference Include="..\Bira.App.Providers.Domain\Bira.App.Providers.Domain.csproj" />
     <ProjectReference Include="..\Bira.App.Providers.Infra\Bira.App.Providers.Infra.csproj" />
     <ProjectReference Include="..\Bira.App.Providers.Service\Bira.App.Providers.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\V2\" />
   </ItemGroup>
 
 </Project>

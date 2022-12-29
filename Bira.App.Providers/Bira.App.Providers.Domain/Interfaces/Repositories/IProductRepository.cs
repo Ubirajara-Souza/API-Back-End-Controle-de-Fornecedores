@@ -6,7 +6,7 @@ namespace Bira.App.Providers.Domain.Interfaces.Repositories
     public interface IProductRepository : IRepository<Product>
     {
         Task<IEnumerable<Product>> GetProductPerProvider(Guid providerId);
-        Task<IEnumerable<Product>> GetProductProvider();
-        Task<Product> GetProductProvider(Guid id);
+        Task<IEnumerable<Product>> GetProductsProviders();
+        Task<Product> GetProductProviderById(Guid id);
     }
 }

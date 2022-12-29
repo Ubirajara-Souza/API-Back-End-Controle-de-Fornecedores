@@ -25,7 +25,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProviderDto>> GetProvider()
+        public async Task<IEnumerable<ProviderDto>> GetAllProvider()
         {
             var provider = _mapper.Map<IEnumerable<ProviderDto>>(await _providerRepository.GetAll());
             return provider;
@@ -56,7 +56,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
         {
             if (id != providerDto.Id)
             {
-                NotifyError("Id informado está diferente do procurado");
+                NotifyError("Os ids informados não são iguais!");
                 return CustomResponse(ModelState);
             }
 
@@ -94,7 +94,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
         {
             if (id != addressDto.Id)
             {
-                NotifyError("Id informado está diferente do procurado");
+                NotifyError("Os ids informados não são iguais!");
                 return CustomResponse(addressDto);
             }
 

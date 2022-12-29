@@ -1,7 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Bira.App.Providers.Service.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Bira.App.Providers.Domain.DTOs
 {
+    [ModelBinder(BinderType = typeof(ProductModelBinder))]
     public class ProductDto
     {
         [Key]
@@ -18,7 +23,8 @@ namespace Bira.App.Providers.Domain.DTOs
         [StringLength(1000, ErrorMessage = "O campo Descrição precisa ter entre {2} e {1} caracteres", MinimumLength = 2)]
         public string Description { get; set; }
 
-        public string ImageUpload { get; set; }
+        [JsonIgnore]
+        public IFormFile ImageUpload { get; set; }
 
         public string Image { get; set; }
 

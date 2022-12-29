@@ -19,6 +19,7 @@ namespace Bira.App.Providers.Api.Configuration
             services.AddScoped<INotifier, Notifier>();
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IImageService, ImageService>();
 
             return services;
         }

@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Infra", "5 - Infra", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Tests", "6 - Tests", "{E71B9B3C-7C8F-4966-8B1C-B2E3B1998409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bira.App.Providers.Api", "Bira.App.Providers.Api\Bira.App.Providers.Api.csproj", "{BC26761A-D0F2-4EC7-AF25-BAACE99A7E08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bira.App.Providers.Api", "Bira.App.Providers.Api\Bira.App.Providers.Api.csproj", "{BC26761A-D0F2-4EC7-AF25-BAACE99A7E08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bira.App.Providers.Service", "Bira.App.Providers.Service\Bira.App.Providers.Service.csproj", "{EBBC35E2-9FF8-49DA-8A52-4426C896E89E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bira.App.Providers.Service", "Bira.App.Providers.Service\Bira.App.Providers.Service.csproj", "{EBBC35E2-9FF8-49DA-8A52-4426C896E89E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bira.App.Providers.Domain", "Bira.App.Providers.Domain\Bira.App.Providers.Domain.csproj", "{0D1EDBEA-EB4D-4121-8AFD-7E85995EA57B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bira.App.Providers.Domain", "Bira.App.Providers.Domain\Bira.App.Providers.Domain.csproj", "{0D1EDBEA-EB4D-4121-8AFD-7E85995EA57B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bira.App.Providers.Application", "Bira.App.Providers.Application\Bira.App.Providers.Application.csproj", "{C71E3278-DD33-4061-A912-DF08386016B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bira.App.Providers.Application", "Bira.App.Providers.Application\Bira.App.Providers.Application.csproj", "{C71E3278-DD33-4061-A912-DF08386016B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bira.App.Providers.Infra", "Bira.App.Providers.Infra\Bira.App.Providers.Infra.csproj", "{FBE6E3B0-FABF-4873-9677-C65E4A343176}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bira.App.Providers.Infra", "Bira.App.Providers.Infra\Bira.App.Providers.Infra.csproj", "{FBE6E3B0-FABF-4873-9677-C65E4A343176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
