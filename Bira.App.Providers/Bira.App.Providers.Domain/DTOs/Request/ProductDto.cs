@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Bira.App.Providers.Domain.DTOs
+namespace Bira.App.Providers.Domain.DTOs.Request
 {
     [ModelBinder(BinderType = typeof(ProductModelBinder))]
     public class ProductDto

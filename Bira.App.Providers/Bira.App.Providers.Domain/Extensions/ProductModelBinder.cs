@@ -1,4 +1,4 @@
-﻿using Bira.App.Providers.Domain.DTOs;
+﻿using Bira.App.Providers.Domain.DTOs.Request;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Text.Json;
 

@@ -1,5 +1,6 @@
 using Bira.App.Providers.Api.Configuration;
 using Bira.App.Providers.Infra.Repositories.BaseContext;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ builder.Configuration
 // ConfigureServices
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+builder.Services.AddMediatR(assembly);
 
 builder.Services.AddAutoMapper(assembly);
 

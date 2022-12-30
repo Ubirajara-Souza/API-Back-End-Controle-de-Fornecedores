@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-using Bira.App.Providers.Domain.DTOs;
+using Bira.App.Providers.Application.Command;
+using Bira.App.Providers.Domain.DTOs.Request;
 using Bira.App.Providers.Domain.Entities;
 using Bira.App.Providers.Domain.Interfaces.Repositories;
 using Bira.App.Providers.Service.Extensions;
 using Bira.App.Providers.Service.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bira.App.Providers.Api.Controllers.V1
@@ -15,14 +17,16 @@ namespace Bira.App.Providers.Api.Controllers.V1
         private readonly IProductService _productService;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public ProductController(IProductRepository productRepository, IProductService productService,
-            IImageService imageService, IMapper mapper, INotifier notifier) : base(notifier)
+            IImageService imageService, IMapper mapper, IMediator mediator, INotifier notifier) : base(notifier)
         {
             _productRepository = productRepository;
             _productService = productService;
             _imageService = imageService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -57,8 +61,10 @@ namespace Bira.App.Providers.Api.Controllers.V1
 
             productDto.Image = imagePrefix + productDto.ImageUpload.FileName;
 
-            var product = _mapper.Map<Product>(productDto);
-            await _productService.Add(product);
+            var result = await _mediator.Send(new CreateProductCommand(productDto));
+
+            if (result.Errors.Any())
+                return BadRequest(result);
 
             return CustomResponse(productDto);
         }

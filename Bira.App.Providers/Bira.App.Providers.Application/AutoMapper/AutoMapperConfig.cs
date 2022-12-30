@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Bira.App.Providers.Domain.DTOs;
+using Bira.App.Providers.Domain.DTOs.Request;
 using Bira.App.Providers.Domain.Entities;
 
 namespace Bira.App.Providers.Application.AutoMapper

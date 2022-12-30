@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bira.App.Providers.Domain.DTOs
+namespace Bira.App.Providers.Domain.DTOs.Request
 {
     public class ProviderDto
     {
