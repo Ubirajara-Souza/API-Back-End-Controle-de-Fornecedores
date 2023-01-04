@@ -12,11 +12,6 @@ namespace Bira.App.Providers.Service.Services
         {
             _productRepository = productRepository;
         }
-        public async Task Add(Product product)
-        {
-            if (!RunValidation(new ProductValidators(), product)) return;
-            await _productRepository.Add(product);
-        }
 
         public async Task Update(Product product)
         {

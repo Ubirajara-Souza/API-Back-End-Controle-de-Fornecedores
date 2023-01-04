@@ -1,7 +1,6 @@
 using Bira.App.Providers.Api.Configuration;
 using Bira.App.Providers.Infra.Repositories.BaseContext;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,29 +1,23 @@
 ﻿using AutoMapper;
-using Bira.App.Providers.Application.Command;
 using Bira.App.Providers.Domain.DTOs.Response;
-using Bira.App.Providers.Domain.Entities;
 using Bira.App.Providers.Domain.Interfaces.Repositories;
 using MediatR;
 
-namespace Bira.App.Providers.Application.Handler
+namespace Bira.App.Providers.Application.Query.QueryHandler
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Response>
+    public class GetProductProviderByIdQueryHandler : IRequestHandler<GetProductProviderByIdQuery, Response>
     {
-        private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
 
-        public CreateProductCommandHandler(IMapper mapper, IProductRepository productRepository)
+        public GetProductProviderByIdQueryHandler(IProductRepository productRepository)
         {
-            _mapper = mapper;
             _productRepository = productRepository;
         }
-
-        public async Task<Response> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(GetProductProviderByIdQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var product = _mapper.Map<Product>(request.ProductDto);
-                await _productRepository.Add(product);
+                var product = await _productRepository.GetProductProviderById(request.Id);
 
                 var response = new Response(product, true);
 

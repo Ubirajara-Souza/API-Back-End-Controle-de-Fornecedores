@@ -28,6 +28,7 @@ namespace Bira.App.Providers.Domain.DTOs.Request
 
         public string Image { get; set; }
 
+        [Range(1, Double.PositiveInfinity, ErrorMessage = "O campo Valor precisa ser maior que zero")]
         [Required(ErrorMessage = "O campo Valor é obrigatório")]
         public decimal Value { get; set; }
 

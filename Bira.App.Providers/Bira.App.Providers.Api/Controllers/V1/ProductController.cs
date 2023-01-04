@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bira.App.Providers.Application.Command;
+using Bira.App.Providers.Application.Query;
 using Bira.App.Providers.Domain.DTOs.Request;
 using Bira.App.Providers.Domain.Entities;
 using Bira.App.Providers.Domain.Interfaces.Repositories;
@@ -32,8 +33,8 @@ namespace Bira.App.Providers.Api.Controllers.V1
         [HttpGet]
         public async Task<IEnumerable<ProductDto>> GetAllProduct()
         {
-            var product = await _productRepository.GetProductsProviders();
-            var productDto = _mapper.Map<IEnumerable<ProductDto>>(product);
+            var product = await _mediator.Send(new GetProductsProvidersQuery());
+            var productDto = _mapper.Map<IEnumerable<ProductDto>>(product.Result);
             return productDto;
         }
 
@@ -60,7 +61,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             }
 
             productDto.Image = imagePrefix + productDto.ImageUpload.FileName;
-
+ 
             var result = await _mediator.Send(new CreateProductCommand(productDto));
 
             if (result.Errors.Any())
@@ -83,8 +84,6 @@ namespace Bira.App.Providers.Api.Controllers.V1
 
             if (string.IsNullOrEmpty(productDto.Image))
                 productDto.Image = updateProduct.Image;
-
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             if (productDto.ImageUpload != null)
             {
@@ -123,10 +122,12 @@ namespace Bira.App.Providers.Api.Controllers.V1
 
         private async Task<ProductDto> GetProduct(Guid id)
         {
-            var product = await _productRepository.GetProductProviderById(id);
-            var productDto = _mapper.Map<ProductDto>(product);
+            var product = await _mediator.Send(new GetProductProviderByIdQuery(id));
+            var productDto = _mapper.Map<ProductDto>(product.Result);
             return productDto;
         }
     }
 }
+
+
 
