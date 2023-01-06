@@ -17,8 +17,17 @@ namespace Bira.App.Providers.Application.Query.QueryHandler
         {
             try
             {
+                var response = new Response();
                 var product = await _productRepository.GetProductsProviders();
-                var response = new Response(product, true);
+
+                if (product == null)
+                {
+                    response.Success = false;
+                    response.AddError("Não existe produto cadastrado.");
+                }
+
+                response.Success = true;
+                response.Result = product;
 
                 return response;
             }

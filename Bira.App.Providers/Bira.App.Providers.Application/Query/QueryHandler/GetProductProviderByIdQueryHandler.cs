@@ -18,8 +18,16 @@ namespace Bira.App.Providers.Application.Query.QueryHandler
             try
             {
                 var product = await _productRepository.GetProductProviderById(request.Id);
+                var response = new Response();
 
-                var response = new Response(product, true);
+                if (product == null)
+                {
+                    response.Success = false;
+                    response.AddError("Produto não encontrado.");
+                }
+
+                response.Success = true;
+                response.Result = product;
 
                 return response;
             }

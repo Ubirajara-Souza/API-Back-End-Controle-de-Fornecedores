@@ -2,8 +2,6 @@
 using Bira.App.Providers.Application.Command;
 using Bira.App.Providers.Application.Query;
 using Bira.App.Providers.Domain.DTOs.Request;
-using Bira.App.Providers.Domain.Entities;
-using Bira.App.Providers.Domain.Interfaces.Repositories;
 using Bira.App.Providers.Service.Extensions;
 using Bira.App.Providers.Service.Interfaces;
 using MediatR;
@@ -14,17 +12,13 @@ namespace Bira.App.Providers.Api.Controllers.V1
     [Route("api/V1/[controller]")]
     public class ProductController : BaseController
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IProductService _productService;
         private readonly IImageService _imageService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public ProductController(IProductRepository productRepository, IProductService productService,
-            IImageService imageService, IMapper mapper, IMediator mediator, INotifier notifier) : base(notifier)
+        public ProductController(IImageService imageService, IMapper mapper,
+            IMediator mediator, INotifier notifier) : base(notifier)
         {
-            _productRepository = productRepository;
-            _productService = productService;
             _imageService = imageService;
             _mapper = mapper;
             _mediator = mediator;
@@ -61,11 +55,10 @@ namespace Bira.App.Providers.Api.Controllers.V1
             }
 
             productDto.Image = imagePrefix + productDto.ImageUpload.FileName;
- 
+
             var result = await _mediator.Send(new CreateProductCommand(productDto));
 
-            if (result.Errors.Any())
-                return BadRequest(result);
+            if (result.Errors.Any()) return BadRequest(result);
 
             return CustomResponse(productDto);
         }
@@ -79,6 +72,8 @@ namespace Bira.App.Providers.Api.Controllers.V1
                 NotifyError("Os ids informados não são iguais!");
                 return CustomResponse();
             }
+
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var updateProduct = await GetProduct(id);
 
@@ -102,8 +97,9 @@ namespace Bira.App.Providers.Api.Controllers.V1
             updateProduct.Value = productDto.Value;
             updateProduct.Active = productDto.Active;
 
-            var product = _mapper.Map<Product>(updateProduct);
-            await _productService.Update(product);
+            var result = await _mediator.Send(new UpdateProductCommand(updateProduct));
+
+            if (result.Errors.Any()) return BadRequest(result);
 
             return CustomResponse(productDto);
         }
@@ -115,7 +111,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
 
             if (product == null) return NotFound();
 
-            await _productService.Delete(id);
+            await _mediator.Send(new DeleteProductCommand(id));
 
             return CustomResponse(product);
         }
