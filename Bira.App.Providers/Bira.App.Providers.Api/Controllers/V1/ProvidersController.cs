@@ -1,13 +1,18 @@
 ﻿using AutoMapper;
 using Bira.App.Providers.Domain.DTOs.Request;
 using Bira.App.Providers.Domain.Entities;
+using Bira.App.Providers.Domain.Extensions;
+using Bira.App.Providers.Domain.Interfaces;
 using Bira.App.Providers.Domain.Interfaces.Repositories;
 using Bira.App.Providers.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bira.App.Providers.Api.Controllers.V1
 {
-    [Route("api/V1/[controller]")]
+    [Authorize]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ProvidersController : BaseController
     {
         private readonly IProviderRepository _providerRepository;
@@ -16,7 +21,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
         private readonly IMapper _mapper;
 
         public ProvidersController(IProviderRepository providerRepository, IProviderService providerService,
-            IAddressRepository addressRepository, IMapper mapper, INotifier notifier) : base(notifier)
+            IAddressRepository addressRepository, IMapper mapper, INotifier notifier, IUser user) : base(notifier, user)
         {
             _providerRepository = providerRepository;
             _providerService = providerService;
@@ -24,6 +29,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IEnumerable<ProviderDto>> GetAllProvider()
         {
@@ -31,6 +37,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             return provider;
         }
 
+        [ClaimsAuthorize("Provider", "GetByID")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProviderDto>> GetProviderById(Guid id)
         {
@@ -40,6 +47,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             return provider;
         }
 
+        [ClaimsAuthorize("Provider", "Add")]
         [HttpPost]
         public async Task<ActionResult<ProviderDto>> AddProvider(ProviderDto providerDto)
         {
@@ -51,6 +59,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             return CustomResponse(providerDto);
         }
 
+        [ClaimsAuthorize("Provider", "Update")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<ProviderDto>> UpdateProvider(Guid id, ProviderDto providerDto)
         {
@@ -68,6 +77,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             return CustomResponse(providerDto);
         }
 
+        [ClaimsAuthorize("Provider", "Delete")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<ProviderDto>> DeleteProvider(Guid id)
         {
@@ -80,7 +90,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             return CustomResponse(providerDto);
         }
 
-
+        [ClaimsAuthorize("Provider", "GetByID")]
         [HttpGet("address/{id:guid}")]
         public async Task<AddressDto> GetAddressById(Guid id)
         {
@@ -89,6 +99,7 @@ namespace Bira.App.Providers.Api.Controllers.V1
             return addressDto;
         }
 
+        [ClaimsAuthorize("Provider", "Update")]
         [HttpPut("address/{id:guid}")]
         public async Task<IActionResult> UpdateAddress(Guid id, AddressDto addressDto)
         {

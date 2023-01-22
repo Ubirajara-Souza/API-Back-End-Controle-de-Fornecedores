@@ -1,9 +1,13 @@
-﻿using Bira.App.Providers.Domain.Interfaces.Repositories;
+﻿using Bira.App.Providers.Domain.Extensions;
+using Bira.App.Providers.Domain.Interfaces;
+using Bira.App.Providers.Domain.Interfaces.Repositories;
 using Bira.App.Providers.Infra.Repositories;
 using Bira.App.Providers.Infra.Repositories.BaseContext;
 using Bira.App.Providers.Service.Interfaces;
 using Bira.App.Providers.Service.Notifications;
 using Bira.App.Providers.Service.Services;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Bira.App.Providers.Api.Configuration
 {
@@ -19,6 +23,12 @@ namespace Bira.App.Providers.Api.Configuration
             services.AddScoped<INotifier, Notifier>();
             services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IAuthService, AuthService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUser, AspNetUser>();
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             return services;
         }

@@ -1,4 +1,5 @@
-﻿using Bira.App.Providers.Service.Interfaces;
+﻿using Bira.App.Providers.Domain.Interfaces;
+using Bira.App.Providers.Service.Interfaces;
 using Bira.App.Providers.Service.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -9,10 +10,21 @@ namespace Bira.App.Providers.Api.Controllers
     public abstract class BaseController : Controller
     {
         private readonly INotifier _notifier;
+        public readonly IUser AppUser;
 
-        protected BaseController(INotifier notifier)
+        protected Guid UserId { get; set; }
+        protected bool UserAuthenticated { get; set; }
+
+        protected BaseController(INotifier notifier, IUser appUser)
         {
             _notifier = notifier;
+            AppUser = appUser;
+
+            if (appUser.IsAuthenticated())
+            {
+                UserId = appUser.GetUserId();
+                UserAuthenticated = true;
+            }
         }
 
         protected bool ValidOperation()
